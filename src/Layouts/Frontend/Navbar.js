@@ -84,8 +84,12 @@ function Navbar() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="/view-order">View Order</Dropdown.Item>
-              <Dropdown.Item href="/Information">Information</Dropdown.Item>
+              <Dropdown.Item>
+                <Link to="/view-order"> View order</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to="/Information">Information</Link>
+              </Dropdown.Item>
               <div className="dropdown-divider"></div>
               <Dropdown.Item href="#" onClick={logoutSubmit}>
                 <MdLogout /> Logout
