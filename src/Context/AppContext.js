@@ -12,7 +12,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     try {
       const accessToken = localStorage.getItem("auth_token");
-      if (!isAuthenticated | !accessToken) {
+      if (!accessToken) {
         return;
       }
       axios.get(`/api/getUser`).then((res) => {
