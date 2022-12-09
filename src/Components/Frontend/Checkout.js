@@ -147,7 +147,7 @@ function Checkout()
                     if(res.data.status === 200)
                     {
                         setError([]);
-                          var myModal = new Modal(document.getElementById('payOnlineModal'));
+                        var myModal = new Modal(document.getElementById('payOnlineModal'));
                         myModal.show();
                     }
                     else if(res.data.status === 422)

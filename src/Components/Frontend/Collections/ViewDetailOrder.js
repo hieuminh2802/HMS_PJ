@@ -13,10 +13,12 @@ function ViewDetailOrder(props)
     useEffect(() => {
 
         const order_id = props.match.params.id;
-        axios.get(`/api/view-detail-order/${order_id}`).then(res =>{
+        const order_detail_id = props.match.params.id;
+        axios.get(`/api/view-detail-order-item/${order_id}/${order_detail_id}`).then(res =>{
             if(res.data.status === 200)
             {
-                setViewOrder(res.data.order);
+                console.log(res.data.orderitem);
+                setOrderItem(res.data.orderitem);
             }
             else if(res.data.status === 404)
             {
@@ -25,23 +27,7 @@ function ViewDetailOrder(props)
             }
             setLoading(false);
         });
-    }, []);
-    // useEffect(() => {
-
-    //     const order_id = props.match.params.id;
-    //     axios.get(`/api/view-detail-order-item/${order_id}`).then(res =>{
-    //         if(res.data.status === 200)
-    //         {
-    //             setOrderItem(res.data.orderitem);
-    //         }
-    //         else if(res.data.status === 404)
-    //         {
-    //             swal("Error",res.data.message,"error");
-    //             history.push('/view-order');
-    //         }
-    //         setLoading(false);
-    //     });
-    // }, []);
+    }, [props.match.params.order_id,props.match.params.order_detail_id,history]);
    
     var display_viewdetailorders = "";
     if(loading)
