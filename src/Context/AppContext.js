@@ -12,12 +12,17 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const accessToken = localStorage.getItem("auth_token");
     if (accessToken) {
-      axios.get(`/api/getUser`).then((res) => {
-        if (res.data.status === 200) {
-          setIsAuthenticated(true);
-          setUser(res.data.user[0]);
-        }
-      });
+      try {
+        axios.get(`/api/getUser`).then((res) => {
+          if (res.data.status === 200) {
+            setIsAuthenticated(true);
+            setUser(res.data.user[0]);
+          }
+        });
+      } catch (error) {
+        console.log("authenticated failed", error);
+        localStorage.removeItem("auth_token");
+      }
     }
   }, []);
 
