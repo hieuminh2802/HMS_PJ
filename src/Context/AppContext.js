@@ -10,12 +10,15 @@ export const AppProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    axios.get(`/api/getUser`).then((res) => {
-      if (res.data.status === 200) {
-        setIsAuthenticated(true);
-        setUser(res.data.user[0]);
-      }
-    });
+    const accessToken = localStorage.getItem("auth_token");
+    if (accessToken) {
+      axios.get(`/api/getUser`).then((res) => {
+        if (res.data.status === 200) {
+          setIsAuthenticated(true);
+          setUser(res.data.user[0]);
+        }
+      });
+    }
   }, []);
 
   return (
