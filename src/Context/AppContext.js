@@ -24,12 +24,17 @@ export const AppProvider = ({ children }) => {
         localStorage.removeItem("auth_token");
       }
     }
-  }, []);
+  }, [isAuthenticated]);
+
+  const setAuthenticated = () => {
+    setIsAuthenticated(true);
+  };
 
   return (
     <AppContext.Provider
       value={{
         user,
+        setAuthenticated,
         isAuthenticated,
         cartCount,
         setCartCount,
