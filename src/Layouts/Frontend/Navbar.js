@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import axios from "axios";
+import React, { useRef } from "react";
+import Dropdown from "react-bootstrap/Dropdown";
 import { BiCartAlt, BiCategoryAlt, BiPencil } from "react-icons/bi";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { IoIosHome } from "react-icons/io";
 import { MdLogin, MdLogout } from "react-icons/md";
-import Dropdown from "react-bootstrap/Dropdown";
-import "../../Assets/frontend/css/nav.css";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
-import { useHistory } from "react-router-dom";
 import logo from "../../Assets/admin/img/logo3.png";
-import { useContext } from "react";
+import "../../Assets/frontend/css/nav.css";
 import { useAppContext } from "../../Context/AppContext";
 
 function Navbar() {
@@ -22,17 +20,12 @@ function Navbar() {
   const { cartCount, user, isAuthenticated } = useAppContext();
 
   const history = useHistory();
+  const { setUnAuthenticated } = useAppContext();
   const logoutSubmit = (e) => {
     e.preventDefault();
-
-    axios.post(`/api/logout`).then((res) => {
-      if (res.data.status === 200) {
-        localStorage.removeItem("auth_token");
-        localStorage.removeItem("auth_name");
-        swal("Success", res.data.message, "success");
-        history.push("/");
-      }
-    });
+    setUnAuthenticated();
+    swal("Success", "Logout success");
+    history.push("/");
   };
 
   return (

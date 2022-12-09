@@ -11,6 +11,9 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("auth_token");
+    if (!isAuthenticated) {
+      return;
+    }
     if (accessToken) {
       try {
         axios.get(`/api/getUser`).then((res) => {
@@ -30,10 +33,16 @@ export const AppProvider = ({ children }) => {
     setIsAuthenticated(true);
   };
 
+  const setUnAuthenticated = () => {
+    setIsAuthenticated(false);
+    localStorage.clear();
+  };
+
   return (
     <AppContext.Provider
       value={{
         user,
+        setUnAuthenticated,
         setAuthenticated,
         isAuthenticated,
         cartCount,
