@@ -10,22 +10,20 @@ export const AppProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("auth_token");
-    if (!isAuthenticated) {
-      return;
-    }
-    if (accessToken) {
-      try {
-        axios.get(`/api/getUser`).then((res) => {
-          if (res.data.status === 200) {
-            setIsAuthenticated(true);
-            setUser(res.data.user[0]);
-          }
-        });
-      } catch (error) {
-        console.log("authenticated failed", error);
-        localStorage.removeItem("auth_token");
+    try {
+      const accessToken = localStorage.getItem("auth_token");
+      if (!isAuthenticated | !accessToken) {
+        return;
       }
+      axios.get(`/api/getUser`).then((res) => {
+        if (res.data.status === 200) {
+          setIsAuthenticated(true);
+          setUser(res.data.user[0]);
+        }
+      });
+    } catch (error) {
+      console.log("authenticated failed", error);
+      localStorage.removeItem("auth_token");
     }
   }, [isAuthenticated]);
 

@@ -60,7 +60,7 @@ function Navbar() {
             </div>
           </li>
         </Link>
-        {!isAuthenticated && !user ? (
+        {!isAuthenticated || !user ? (
           <div>
             <Link to="/Login">
               <li>
